@@ -8,37 +8,35 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { type Category, type Prisma } from '../../generated/prisma/client';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() categoryData: Prisma.CategoryCreateInput): Promise<Category> {
+  create(@Body() categoryData: CreateCategoryDto) {
     return this.categoriesService.create(categoryData);
   }
 
   @Get()
-  findAll(): Promise<Category[]> {
+  findAll() {
     return this.categoriesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Category | null> {
+  findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() categoryData: Prisma.CategoryUpdateInput,
-  ): Promise<Category | null> {
+  update(@Param('id') id: string, @Body() categoryData: UpdateCategoryDto) {
     return this.categoriesService.update(id, categoryData);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<Category> {
+  remove(@Param('id') id: string) {
     return this.categoriesService.remove(id);
   }
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -17,7 +18,7 @@ export class CategoriesController {
 
   @Post()
   create(@Body() categoryData: CreateCategoryDto) {
-    return this.categoriesService.create(categoryData);
+    return this.categoriesService.createCategory(categoryData);
   }
 
   @Get()
@@ -26,7 +27,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.categoriesService.findOne(id);
   }
 

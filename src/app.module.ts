@@ -5,6 +5,9 @@ import { AppService } from './app.service';
 import { validate } from './config/env.validation';
 import { PrismaModule } from './prisma/prisma.module';
 import { CategoriesModule } from './categories/categories.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +17,8 @@ import { CategoriesModule } from './categories/categories.module';
     }),
     PrismaModule,
     CategoriesModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

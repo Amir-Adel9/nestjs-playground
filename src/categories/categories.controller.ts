@@ -11,33 +11,41 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryEntity } from './entity/category.entity';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() categoryData: CreateCategoryDto) {
+  createCategory(
+    @Body() categoryData: CreateCategoryDto,
+  ): Promise<CategoryEntity> {
     return this.categoriesService.createCategory(categoryData);
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  findAllCategories(): Promise<CategoryEntity[]> {
+    return this.categoriesService.findAllCategories();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.categoriesService.findOne(id);
+  findCategoryById(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<CategoryEntity> {
+    return this.categoriesService.findCategoryById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() categoryData: UpdateCategoryDto) {
-    return this.categoriesService.update(id, categoryData);
+  updateCategory(
+    @Param('id') id: string,
+    @Body() categoryData: UpdateCategoryDto,
+  ): Promise<CategoryEntity> {
+    return this.categoriesService.updateCategory(id, categoryData);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id);
+  removeCategory(@Param('id') id: string): Promise<CategoryEntity> {
+    return this.categoriesService.removeCategory(id);
   }
 }

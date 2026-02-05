@@ -13,26 +13,18 @@ datasource db {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
+  id String   @id @default(uuid())
   email String  @unique
   name  String?
-  posts Post[]
+  password String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
-}
-
-// This is your "Topic" (e.g., History, Astronomy)
 model Category {
-  id          String   @id @default(uuid()) // Unique ID like 'a1b2-c3d4'
-  name        String   @unique              // "Astronomy" must be unique
-  description String?                       // Optional description
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
